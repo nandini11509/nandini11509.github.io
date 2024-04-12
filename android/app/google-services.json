@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "622091871408",
+    "project_id": "clubmusicrecommendation",
+    "storage_bucket": "clubmusicrecommendation.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:622091871408:android:ebe91cf258113e0b138775",
+        "android_client_info": {
+          "package_name": "com.example.musicrec"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1xPhGH6PGxslwNatmVFvi9d8GSyAmMPI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

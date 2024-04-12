@@ -1,0 +1,109 @@
+//keystorepass --> this is the password for keystore file
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+if (flutterVersionCode == null) {
+    flutterVersionCode = '1'
+}
+
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
+if (flutterVersionName == null) {
+    flutterVersionName = '1.0'
+}
+apply plugin: "com.android.application"
+apply plugin: "com.google.gms.google-services"
+android {
+    namespace "com.example.musicrec"
+    compileSdk flutter.compileSdkVersion
+    ndkVersion flutter.ndkVersion
+
+    lintOptions {
+        checkReleaseBuilds false
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    defaultConfig {
+        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+        applicationId "com.example.musicrec"
+        // You can update the following values to match your application needs.
+        // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
+        minSdkVersion flutter.minSdkVersion
+        targetSdkVersion flutter.targetSdkVersion
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+        multiDexEnabled true
+
+
+    }
+
+    buildTypes {
+        release {
+            // TODO: Add your own signing config for the release build.
+            // Signing with the debug keys for now, so `flutter run --release` works.
+            signingConfig signingConfigs.debug
+        }
+    }
+}
+
+flutter {
+    source '../..'
+}
+
+dependencies {
+    implementation "androidx.multidex:multidex:2.0.1"
+
+}
+//PS C:\Users\nandi\OneDrive\Desktop\musicrec\android\app> keytool -genkey -v -keystore keystore_filename.jks -keyalg RSA -keysize 2048 -validity 10000 -alias keyalias
+//Enter keystore password:
+//Re-enter new password:
+//Enter the distinguished name. Provide a single dot (.) to leave a sub-component empty or press ENTER to use the default value in braces.
+//        What is your first and last name?
+//[Unknown]:  Nandini Sharma
+//What is the name of your organizational unit?
+//        [Unknown]:  .
+//        What is the name of your organization?
+//        [Unknown]:
+//        What is the name of your City or Locality?
+//        [Unknown]:
+//        What is the name of your State or Province?
+//        [Unknown]:
+//        What is the two-letter country code for this unit?
+//        [Unknown]:
+//        [Unknown]:
+//What is the two-letter country code for this unit?
+//        [Unknown]:
+//        Is CN=Nandini Sharma, O=Unknown, L=Unknown, ST=Unknown, C=Unknown correct?
+//        [no]:  Y
+//
+//Generating 2,048 bit RSA key pair and self-signed certificate (SHA384withRSA) with a validity of 10,000 days
+//for: CN=Nandini Sharma, O=Unknown, L=Unknown, ST=Unknown, C=Unknown
+//[Storing keystore_filename.jks]
+
+//cmd for sha1 key :keytool -list -v -keystore keystore_filename.jks -alias keyalias -storepass keystorepass
+//Certificate fingerprints:
+//         SHA1: E7:0F:7A:95:9C:AB:D0:94:54:BD:EE:77:AE:55:D7:13:39:34:EB:71
+//         SHA256: 82:55:4C:09:D3:B9:00:F4:06:8D:D2:48:7B:B0:2A:80:70:58:86:31:1C:90:09:B5:58:49:53:87:5F:C5:2D:00
+//Signature algorithm name: SHA384withRSA
