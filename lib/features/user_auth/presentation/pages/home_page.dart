@@ -7,7 +7,7 @@ import 'package:musicrec/features/user_auth/presentation/pages/login_page.dart';
 import 'package:musicrec/features/user_auth/presentation/widgets/form_container_widget.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,54 +18,56 @@ class HomePage extends StatelessWidget {
       ),
       backgroundColor: Colors.lightBlue.shade100,
 
-      body:Padding(
+      body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Welcome to Home Page!", style: TextStyle(fontSize: 50),),
-            Center(
-              child: GestureDetector(
-                onTap: (){
-                  Navigator.pushNamed(context, "/delete");
-                },
-                child: Container(
-                  width: 150,
-
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Center(
-                    child: Text(
-                      "Delete your account",
-                      style: TextStyle(color: Colors.white),
-                    ),
+            Text("Welcome to Home Page!", style: TextStyle(fontSize: 50)),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, "/choosemusic");
+              },
+              child: Text("Choose Music"),
+            ),
+            SizedBox(height: 10),
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, "/delete");
+              },
+              child: Container(
+                width: 150,
+                height: 50,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Center(
+                  child: Text(
+                    "Delete your account",
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 10,),
-            Center(
-              child: GestureDetector(
-                onTap: (){
-                  FirebaseAuth.instance.signOut();
-                  Navigator.pushNamed(context, "/login");
-                },
-                child: Container(
-                  width: 150,
-
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Center(
-                    child: Text(
-                      "Logout",
-                      style: TextStyle(color: Colors.white),
-                    ),
+            SizedBox(height: 10),
+            GestureDetector(
+              onTap: () {
+                FirebaseAuth.instance.signOut();
+                Navigator.pushNamed(context, "/login");
+              },
+              child: Container(
+                width: 150,
+                height: 50,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Center(
+                  child: Text(
+                    "Logout",
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
               ),
@@ -73,7 +75,6 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-
     );
   }
 }
