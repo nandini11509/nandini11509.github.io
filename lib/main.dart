@@ -5,6 +5,7 @@ import 'package:musicrec/features/user_auth/presentation/pages/choose_music.dart
 import 'package:musicrec/features/user_auth/presentation/pages/home_page.dart';
 import 'package:musicrec/features/user_auth/presentation/pages/login_page.dart';
 import 'package:musicrec/features/user_auth/presentation/pages/delete.dart';
+import 'package:musicrec/features/user_auth/presentation/pages/queue.dart';
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => HomePage(),
         '/delete': (context) => DeleteAccount(),
         '/choosemusic': (context) => ChooseMusic(),
+        '/queue':(context) => SongListWidget(),
       },
     );
   }

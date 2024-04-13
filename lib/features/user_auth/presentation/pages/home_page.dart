@@ -1,13 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import 'package:get/get.dart';
-import 'package:musicrec/features/user_auth/presentation/pages/login_page.dart';
-import 'package:musicrec/features/user_auth/presentation/widgets/form_container_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key});
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +12,6 @@ class HomePage extends StatelessWidget {
         backgroundColor: Colors.red.shade200,
       ),
       backgroundColor: Colors.lightBlue.shade100,
-
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(
@@ -71,6 +65,13 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
               ),
+            ),
+            SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, "/queue");
+              },
+              child: Text("Queue"),
             ),
           ],
         ),
