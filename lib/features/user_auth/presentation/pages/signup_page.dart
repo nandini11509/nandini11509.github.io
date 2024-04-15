@@ -16,7 +16,7 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
-  String _errorMessage = ''; // Added to store error message
+  String _errorMessage = '';
 
   @override
   void dispose() {
@@ -86,7 +86,6 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
 
             SizedBox(height: 20,),
-            // Display error message if it's not empty
             if (_errorMessage.isNotEmpty)
               Text(
                 _errorMessage,
@@ -137,7 +136,6 @@ class _SignUpPageState extends State<SignUpPage> {
       }
     } catch (error) {
       setState(() {
-        // Display specific error messages to the user
         if (error is FirebaseAuthException) {
           _errorMessage = _mapFirebaseErrorToMessage(error.code);
         } else {
@@ -148,14 +146,12 @@ class _SignUpPageState extends State<SignUpPage> {
     }
   }
 
-  // Map Firebase error codes to user-friendly messages
   String _mapFirebaseErrorToMessage(String errorCode) {
     switch (errorCode) {
       case "email-already-in-use":
         return "Email is already in use. Please use a different email.";
       case "weak-password":
         return "Password is too weak. Please use a stronger password.";
-    // Add more cases for other Firebase error codes as needed
       default:
         return "An error occurred: $errorCode";
     }

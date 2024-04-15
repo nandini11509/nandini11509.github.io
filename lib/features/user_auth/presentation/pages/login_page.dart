@@ -75,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(height: 20,),
             SizedBox(height: 20),
 
-            // Display error message if it's not empty
+
             if (_errorMessage.isNotEmpty)
               Text(
                 _errorMessage,
@@ -116,7 +116,6 @@ class _LoginPageState extends State<LoginPage> {
       }
     } catch (error) {
       setState(() {
-        // Display specific error messages to the user
         if (error is FirebaseAuthException) {
           if (error.code == "user-not-found") {
             _errorMessage = "User with this email does not exist.";
@@ -132,14 +131,13 @@ class _LoginPageState extends State<LoginPage> {
   }
 
 
-  // Map Firebase error codes to user-friendly messages
+
   String _mapFirebaseErrorToMessage(String errorCode) {
     switch (errorCode) {
       case "user-not-found":
         return "Email does not exist in the database. Please check your email.";
       case "wrong-password":
         return "Wrong password. Please try again.";
-    // Add more cases for other Firebase error codes as needed
       default:
         return "An error occurred: $errorCode";
     }

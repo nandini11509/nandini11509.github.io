@@ -23,10 +23,12 @@ class FirebaseController extends GetxController {
       try {
         await user.reauthenticateWithCredential(credential);
         await user.delete();
-        onDeleted?.call(); // Call the callback function if provided
-        Get.offAll(LoginPage());
+        onDeleted?.call();
+        Get.offAll(() => LoginPage());
+
         Get.snackbar("Success", "User Account deleted successfully",
             backgroundColor: Colors.green);
+
       } catch (error) {
         Get.snackbar("Error", "Failed to delete account",
             backgroundColor: Colors.red);
@@ -58,19 +60,34 @@ class _DeleteAccountState extends State<DeleteAccount> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             _isAccountDeleted
-                ? Text(
-              'Account deleted successfully!',
-              style: TextStyle(
-                color: Colors.green,
-                fontSize: 18.0,
-              ),
+                ? Column(
+              children: [
+                Text(
+                  'Account deleted successfully!',
+                  style: TextStyle(
+                    color: Colors.green,
+                    fontSize: 18.0,
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginPage(),
+                      ),
+                    );
+                  },
+                  child: Text('Go to Login Page'),
+                ),
+              ],
             )
                 : Column(
               children: [
                 TextField(
                   controller: _usernameController,
                   decoration: InputDecoration(
-                    labelText: 'Username',
+                    labelText: 'Enter your email',
                   ),
                 ),
                 SizedBox(height: 16.0),

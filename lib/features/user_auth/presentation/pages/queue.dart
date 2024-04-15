@@ -19,76 +19,62 @@ class SongListWidget extends StatelessWidget {
             );
           }
 
-          // Convert Firestore data to map
+
           Map<String, String> songMap = {};
           snapshot.data!.docs.forEach((doc) {
             songMap[doc['amount'].toString()] = doc['name'];
           });
 
-          // Sort the map by keys
+
           songMap = sortMapByKeys(songMap);
 
-          // Create list view
+          User? currentUser = FirebaseAuth.instance.currentUser;
+          bool isAdmin = currentUser != null && currentUser.uid == 'HgiC8Qaq7RQJVA298tflsCeUjFD2';
           return ListView.builder(
-            itemCount: songMap.length,
+            itemCount: songMap.length + 1,
             itemBuilder: (context, index) {
-              String amount = songMap.keys.elementAt(index);
-              String name = songMap[amount] ?? 'Unknown';
 
-              // Get the currently signed-in user
-              User? currentUser = FirebaseAuth.instance.currentUser;
+              if (index == 0) {
 
-              // Check if the user is an admin
-              bool isAdmin = currentUser != null && currentUser.uid == 'HgiC8Qaq7RQJVA298tflsCeUjFD2';
-
-              return ListTile(
-                title: Text(name),
-                subtitle: Text('Amount: $amount'),
-                // Allow admin user to delete songs
-                onTap: isAdmin
-                    ? () {
-                  // Prompt user for confirmation
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: Text('Play Song'),
-                        content: Text('Are you sure you want to play $name?'),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Navigator.pop(context),
-                            child: Text('Cancel'),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              // Delete song from Firestore
-                              // if(songMap[index] != null ){
-                              //   String? songId = songMap[index].;
-                              //   if(songId != null ){
-                              //     FirebaseFirestore.instance.collection('songs').doc(songId).delete();
-                              //   }
-                              // }
-                              // // FirebaseFirestore.instance.collection('songs').doc(songMap[index].id).delete();
-                              // Navigator.pop(context);
-                            },
-                            child: Text('Delete'),
-                          ),
-                        ],
-                      );
+                if (isAdmin) {
+                  return ElevatedButton(
+                    onPressed: () {
+                      // Deleting the top song
+                      String amt = songMap.keys.elementAt(index);
+                      String nme = songMap[amt] ?? 'Unknown';
+                      if (songMap.isNotEmpty) {
+                        FirebaseFirestore.instance
+                            .collection('songs')
+                            .doc(nme)
+                            .delete();
+                      }
                     },
+                    child: Text('Play Top Song'),
                   );
+                } else {
+                  return Container();
                 }
-                    : null, // Disable delete functionality for non-admin users
-              );
+              } else {
+                // Adjusting index for accessing songMap
+                final adjustedIndex = index - 1;
+                String amount = songMap.keys.elementAt(adjustedIndex);
+                String name = songMap[amount] ?? 'Unknown';
+
+                return ListTile(
+                  title: Text(name),
+                  subtitle: Text('Amount: $amount'),
+                );
+              }
             },
           );
+
         },
       ),
     );
   }
 }
 
-// Utility function to sort map by keys
+
 Map<String, String> sortMapByKeys(Map<String, String> map) {
   List<int> sortedKeys = map.keys.map((key) => int.parse(key)).toList()
     ..sort((a, b) => b.compareTo(a)); // Sorting in descending order
