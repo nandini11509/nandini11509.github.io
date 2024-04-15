@@ -22,7 +22,19 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text("Welcome to our App"),
+        child: Text(
+          "Beat Blend",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            decoration: TextDecoration.underline,
+            decorationColor: Colors.red, // Customize the underline color
+            decorationStyle: TextDecorationStyle.double, // Customize the underline style
+            fontSize: 24.0, // Customize the font size
+            fontFamily: 'Roboto', // Customize the font family
+            color: Colors.blue, // Customize the text color
+          ),
+        )
+        ,
       ),
     );
   }

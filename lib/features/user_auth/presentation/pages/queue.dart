@@ -8,7 +8,7 @@ class SongListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Song List'),
+        title: Text('Choose a song you like!'),
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('songs').snapshots(),

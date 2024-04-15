@@ -33,7 +33,7 @@ class _SignUpPageState extends State<SignUpPage> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Text(
-          "Sign Up",
+          "BeatBlend",
           style: TextStyle(color: Colors.white),
         ),
       ),
