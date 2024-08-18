@@ -29,7 +29,7 @@ class SongListWidget extends StatelessWidget {
           songMap = sortMapByKeys(songMap);
 
           User? currentUser = FirebaseAuth.instance.currentUser;
-          bool isAdmin = currentUser != null && currentUser.uid == 'HgiC8Qaq7RQJVA298tflsCeUjFD2';
+          bool isAdmin = currentUser != null && currentUser.uid == 'ZFaRvOudbWWX94BI11JebaT6SRF3';
           return ListView.builder(
             itemCount: songMap.length + 1,
             itemBuilder: (context, index) {
